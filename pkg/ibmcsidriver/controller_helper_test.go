@@ -902,6 +902,8 @@ func isCSIResponseSame(expectedVolume *csi.CreateVolumeResponse, actualCSIVolume
 	if expectedVolume == nil || actualCSIVolume == nil {
 		return false
 	}
+	fmt.Println(expectedVolume.Volume)
+	fmt.Println(actualCSIVolume.Volume)
 
 	fmt.Println(expectedVolume.Volume)
 	fmt.Println(actualCSIVolume.Volume)

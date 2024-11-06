@@ -21,7 +21,6 @@ package ibmcsidriver
 
 import (
 	"fmt"
-	"os"
 
 	commonError "github.com/IBM/ibm-csi-common/pkg/messages"
 	mountManager "github.com/IBM/ibm-csi-common/pkg/mountmanager"
@@ -37,7 +36,6 @@ type IBMCSIDriver struct {
 	name          string
 	vendorVersion string
 	logger        *zap.Logger
-	region        string
 
 	ids *CSIIdentityServer
 	ns  *CSINodeServer
@@ -111,12 +109,6 @@ func (icDriver *IBMCSIDriver) SetupIBMCSIDriver(provider cloudProvider.CloudProv
 	icDriver.cs = NewControllerServer(icDriver, provider)
 
 	icDriver.logger.Info("Successfully setup IBM CSI driver")
-	// Set up Region
-	regionMetadata, err := nodeMeta(os.Getenv("KUBE_NODE_NAME"), lgr)
-	if err != nil {
-		return fmt.Errorf("Controller_Helper: Failed to initialize node metadata")
-	}
-	icDriver.region = regionMetadata.GetRegion()
 
 	return nil
 }
